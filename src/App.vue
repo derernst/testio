@@ -1,65 +1,49 @@
 <template>
-  <div id="app" style="padding: 20px">
-    <h1>Testio</h1>
-    <Print></Print>
-    <div v-for="(entry, index) in entries.slice().reverse()" :key="index">
-      <EntryNote :entry="entry"></EntryNote>
-    </div>
-    <addEntry v-on:add-entry-event="addEntry" :entries="entries"></addEntry>
-  </div>
+  <v-app id="inspire">
+    <v-navigation-drawer permanent v-model="drawer" app>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6"> Testio </v-list-item-title>
+          <v-list-item-subtitle> Simply add your test results </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense nav>
+        <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <!--  -->
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import EntryNote from "./components/EntryNote.vue";
-import AddEntry from "./components/AddEntry.vue";
-import Print from "./components/Print.vue";
-
 export default {
-  name: "App",
-  components: {
-    // HelloWorld
-    EntryNote,
-    AddEntry,
-    Print,
-  },
-  data() {
-    return {
-      entries: [],
-    };
-  },
-  methods: {
-    addEntry(newEntry) {
-      this.entries = [...this.entries, newEntry];
-    }
-  },
-  mounted() {
-    if (localStorage.getItem("entries")) {
-      this.entries = JSON.parse(localStorage.getItem("entries"));
-    }
-  },
+  data: () => ({
+    drawer: null,
+    items: [
+      { title: "Testresults", icon: "mdi-view-dashboard" },
+      { title: "About", icon: "mdi-help-box" },
+    ],
+    right: null,
+  }),
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 10px;
-}
-
-ul {
-  padding-left: 0;
-}
-
-li {
-  list-style-type: none;
-}
-.print-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-</style>
