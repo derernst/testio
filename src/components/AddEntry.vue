@@ -1,11 +1,14 @@
 <template>
+
   <b-button-toolbar style="position: fixed; bottom: 20px; right: 20px" key-nav>
+
+      
     <b-button-group class="mx-1">
       <b-button variant="success" @click="addEntryNote(true)">
-        <b-icon icon="check-circle-fill"></b-icon>
+        <b-icon icon="check-circle-fill"></b-icon> <span>Negative</span>
       </b-button>
       <b-button variant="danger" @click="addEntryNote(false)">
-        <b-icon icon="x-circle-fill"></b-icon>
+        <b-icon icon="x-circle-fill"></b-icon> <span>Positive</span>
       </b-button>
     </b-button-group>
   </b-button-toolbar>
